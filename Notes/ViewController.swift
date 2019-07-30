@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.leftBarButtonItem = editButtonItem
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -40,7 +41,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.textLabel?.text = data[indexPath.row]
         return cell
     }
-
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        table.setEditing(editing, animated: animated)
+    }
 
 }
 
