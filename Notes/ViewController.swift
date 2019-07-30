@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var table: UITableView!
     
-    var data:[String] = ["Item 1", "Item 2", "Item 3"]
+    var data:[String] = []
     var saveKey:String = "notes"
     
     override func viewDidLoad() {
