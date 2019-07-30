@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var table: UITableView!
     
     var data:[String] = ["Item 1", "Item 2", "Item 3"]
+    var saveKey:String = "notes"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
+        load()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -37,6 +39,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         data.insert(name, at: 0)
         let indexPath:IndexPath = IndexPath(row: 0, section: 0)
         table.insertRows(at: [indexPath], with: .automatic)
+        save()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,6 +56,18 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         data.remove(at: indexPath.row)
         table.deleteRows(at: [indexPath], with: .fade)
+        save()
+    }
+    
+    func save() {
+        UserDefaults.standard.set(data, forKey: saveKey)
+    }
+    
+    func load() {
+        if let loadedData:[String] = UserDefaults.standard.value(forKey: saveKey) as? [String] {
+            data = loadedData
+            table.reloadData()
+        }
     }
 
 }
