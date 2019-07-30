@@ -46,6 +46,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.setEditing(editing, animated: animated)
         table.setEditing(editing, animated: animated)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        table.deleteRows(at: [indexPath], with: .fade)
+    }
 
 }
 
