@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     var data:[String] = []
     var saveKey:String = "notes"
+    var fileURL:URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
+        
+        let baseURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        fileURL = baseURL.appendingPathComponent("notes.txt")
+        
         load()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,11 +65,17 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func save() {
-        UserDefaults.standard.set(data, forKey: saveKey)
+//        UserDefaults.standard.set(data, forKey: saveKey)
+        let a = NSArray(array: data)
+        do {
+            try a.write(to: fileURL)
+        } catch {
+            print("error writing file")
+        }
     }
     
     func load() {
-        if let loadedData:[String] = UserDefaults.standard.value(forKey: saveKey) as? [String] {
+        if let loadedData:[String] = NSArray(contentsOf: fileURL) as? [String] {
             data = loadedData
             table.reloadData()
         }
