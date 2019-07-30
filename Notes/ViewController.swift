@@ -19,9 +19,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
         
         table.dataSource = self
+        self.title = "Notes"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
+    }
+    
+    func addNote() {
+        let name:String = "Item \(data.count + 1 )"
+        data.insert(name, at: 0)
+        let indexPath:IndexPath = IndexPath(row: 0, section: 0)
+        table.insertRows(at: [IndexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
