@@ -11,14 +11,22 @@ import UIKit
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
+    var text:String = "sdfsdf"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        textView.text = "Cum semper cubilia inceptos accumsan at primis sem, vulputate ante morbi iaculis nisi senectus consequat eleifend, himenaeos consectetur viverra quam leo dui. Dui etiam est volutpat sapien consequat dictum platea natoque lacinia, sollicitudin diam ante lacus nulla dis urna bibendum, sodales lorem eget ad quis potenti ultrices aliquet. Eu urna litora libero facilisis cum cubilia phasellus mi justo, fringilla purus sed dapibus vestibulum ultricies erat inceptos etiam, suspendisse imperdiet tempus hac scelerisque molestie condimentum magnis."
+        textView.text = text
     }
     
+    func setText(t:String) {
+        text = t
+        if isViewLoaded {
+            textView.text = t
+        }
+    
+    }
 
     /*
     // MARK: - Navigation
